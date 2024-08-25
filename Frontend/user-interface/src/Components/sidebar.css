@@ -1,0 +1,15 @@
+.sidebar_main_block {
+    position: absolute;
+    width: 300px;
+    border: 2px solid black;
+    height: 100%;
+}
+.sidebar_header{
+    /* position: absolute; */
+    /* width: 100%; */
+    border: 2px solid rgb(0, 0, 0);
+    display: flex; 
+    justify-content: space-between;
+    padding: 10px;
+
+}
