@@ -37,7 +37,7 @@ export default function Navbar() {
         <div className='flex justify-center items-center text-orange-500 text-4xl font-bold'>Foods</div>
         <div className='flex justify-center items-center'>
           <ul className='flex gap-4 '>
-            {["Home" , "Menu" , "App" , "About"]?.map((items)=>{return(<>
+            {["Home" , "Menu" , "App" , "About" , "Extra"]?.map((items)=>{return(<>
               <li className='hover:text-orange-600 hover:underline hover:cursor-pointer font-sans '>
             {items}
             </li>
