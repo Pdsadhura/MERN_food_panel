@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import Bg1 from "../../Images/Food-bg-1.jpg";
 import DishesCard from "./DishesCard";
+import { StoreContext } from "../../ContextAPI/StoreContext";
 
 export default function Dashboard() {
+  const useStore = useContext(StoreContext)
+  console.log("909oklklklk",useStore)
+
+
   return (
     <>
       <div
@@ -15,7 +20,7 @@ export default function Dashboard() {
       >
         <div className="flex h-full justify-start items-stretch">
           <div className="w-3/4 h-full  p-4 flex flex-wrap justify-start items-center mx-5">
-            <div className="mt-10 mx-auto">
+            <div className="my-11 mx-auto">
               <h1 className="text-orange-400 font-bold  text-7xl ">
                 Order your{" "}
               </h1>
@@ -62,7 +67,7 @@ export default function Dashboard() {
                     }}
                     className=" h-24 w-24 mx-5 rounded-full flex-shrink-0 flex justify-center items-center "
                   >
-                    cvcv
+                  
                   </div>
                   <h2>Foodes</h2>
                 </div>

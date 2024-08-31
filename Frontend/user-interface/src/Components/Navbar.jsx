@@ -1,15 +1,18 @@
-import React, { useContext } from 'react'
+import React, { useContext } from "react";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
-import { AuthContext } from '../ContextAPI/AuthContext';
-import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from "../ContextAPI/AuthContext";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
+import LocalMallIcon from '@mui/icons-material/LocalMall';
+import Badge from '@mui/material/Badge';
 
 export default function Navbar() {
-
-  const ContextValue = useContext(AuthContext)
-  const navigate = useNavigate()
+  const ContextValue = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation()
+  const activePath = location?.pathname
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleMenu = (event) => {
@@ -20,7 +23,7 @@ export default function Navbar() {
     setAnchorEl(null);
   };
   const handleLogout = () => {
-    localStorage.clear()
+    localStorage.clear();
     ContextValue.setAuthStates((prev) => {
       return {
         ...prev,
@@ -30,22 +33,55 @@ export default function Navbar() {
     navigate("/");
   };
 
+  // console.log("vvv",`/${"Home"}` === activePath)
 
   return (
     <>
-    <div className=' h-20 w-full flex justify-between p-4' > 
-        <div className='flex justify-center items-center text-orange-500 text-4xl font-bold'>Foods</div>
-        <div className='flex justify-center items-center'>
-          <ul className='flex gap-4 '>
-            {["Home" , "Menu" , "App" , "About" , "Extra"]?.map((items)=>{return(<>
-              <Link to={items==="Home" ? `/` : `/${items}`} className='hover:text-orange-600 hover:underline hover:cursor-pointer font-sans '>
-            {items}
-            </Link>
-            </>)})}
-    
-         </ul>
+      <div className=" h-20 w-full flex justify-between p-4">
+        <div onClick={()=>{navigate("/")}} className="flex cursor-pointer justify-center items-center text-orange-500 text-4xl font-bold">
+          Foods
         </div>
-        <div className='flex justify-center items-center'>  <div>
+        <div className="flex justify-center items-center">
+          <ul className="flex gap-4 ">
+            {["Home", "Menu", "App", "About", "Extra"]?.map((items) => {
+              return (
+                <>
+                  <Link
+                    to={items === "Home" ? `/` : `/${items}`}
+                    className={(function(){
+                      if(items === "Home"){
+                        if(activePath === `/`){
+                          return "hover:text-orange-600 hover:underline underline text-orange-600  hover:cursor-pointer font-sans "
+                        }else{
+                          return "hover:text-orange-600 hover:underline hover:cursor-pointer font-sans "
+                        }
+                      }else{
+                        if(activePath ===  `/${items}`){
+                          return "hover:text-orange-600 hover:underline underline text-orange-600  hover:cursor-pointer font-sans "
+                        }else{
+                          return "hover:text-orange-600 hover:underline hover:cursor-pointer font-sans "
+                        }
+                      }
+                    })()}
+                  >
+                    {items}
+                  </Link>
+                </>
+              );
+            })}
+          </ul>
+        </div>
+        <div className="flex justify-center items-center">
+          {" "}
+          <div className="grid place-items-center text-gray-600" onClick={()=>{
+            navigate("/cart")
+          }}>
+          <Badge badgeContent={4} color="success" >
+          <LocalMallIcon  />
+      </Badge>
+            
+          </div>
+          <div className="text-gray-600">
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -74,8 +110,9 @@ export default function Navbar() {
               <MenuItem onClick={handleClose}>Profile</MenuItem>
               <MenuItem onClick={handleLogout}>Logout</MenuItem>
             </Menu>
-          </div></div>
-    </div>
+          </div>
+        </div>
+      </div>
     </>
-  )
+  );
 }

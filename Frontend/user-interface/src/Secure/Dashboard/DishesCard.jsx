@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import Rating from "@mui/material/Rating";
 import Bg1 from "../../Images/Food-bg-1.jpg";
 
 export default function DishesCard() {
+
+  const [itemCounter , setItemCounter] = useState(0)
+
   return (
     <>
       <div className="mx-3 mt-2 h-72 w-72 shadow-lg rounded-2xl overflow-hidden">
@@ -15,17 +18,16 @@ export default function DishesCard() {
           }}
         >
           {" "}
-          <div className="h-8 w-1/4 rounded-3xl absolute bottom-2 shadow-md right-2 flex justify-around bg-orange-400">
-            <div className="flex justify-center items-center cursor-pointer font-bold">
-            <button className="bg-white h-6 w-6 rounded-full flex justify-center">-</button>
-             
-              
+          <div className={`h-8 ${itemCounter > 0 ? "w-1/4 bg-orange-400" : "w-auto bg-none"}  rounded-3xl absolute bottom-2 shadow-md right-2 flex justify-around `}>
+          {itemCounter > 0 ? <>  <div className="grid place-items-center cursor-pointer font-bold">
+            <button className="bg-white h-6 w-6 rounded-full" onClick={()=>{setItemCounter((prev)=>(prev - 1))}}>-</button>
             </div>{" "}
             <div className="flex justify-center items-center cursor-pointer text-white text-1xl">
-              5
-            </div>{" "}
+              {itemCounter}
+            </div>{" "}</>:<></>}
+          
             <div className="flex justify-center items-center cursor-pointer ">
-              <button className="bg-white h-6 w-6 rounded-full flex justify-center">+</button>
+              <button className="bg-white h-6 w-6 rounded-full flex justify-center" onClick={()=>{setItemCounter((prev)=>(prev + 1))}}>+</button>
               
             </div>
           </div>
