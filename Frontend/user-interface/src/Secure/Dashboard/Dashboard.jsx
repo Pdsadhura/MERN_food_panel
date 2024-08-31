@@ -77,8 +77,8 @@ export default function Dashboard() {
           <h1 className="text-xl font-medium">Top dishes near you</h1>
         </div>
 
-        <div className="w-full">
-          <div className="flex mt-10 flex-wrap">
+        <div className="w-full mt-5 p-4">
+          <div className="grid grid-cols-4 gap-6">
             {[1, 1, 1, 1, 1, 1, 1, 1, 1]?.map((dessert, index) => (
               <>
                <DishesCard/>

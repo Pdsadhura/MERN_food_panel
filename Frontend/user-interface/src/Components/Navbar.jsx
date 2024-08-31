@@ -3,7 +3,7 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import { AuthContext } from '../ContextAPI/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import IconButton from "@mui/material/IconButton";
 
 export default function Navbar() {
@@ -38,9 +38,9 @@ export default function Navbar() {
         <div className='flex justify-center items-center'>
           <ul className='flex gap-4 '>
             {["Home" , "Menu" , "App" , "About" , "Extra"]?.map((items)=>{return(<>
-              <li className='hover:text-orange-600 hover:underline hover:cursor-pointer font-sans '>
+              <Link to={items==="Home" ? `/` : `/${items}`} className='hover:text-orange-600 hover:underline hover:cursor-pointer font-sans '>
             {items}
-            </li>
+            </Link>
             </>)})}
     
          </ul>
