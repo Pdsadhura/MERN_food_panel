@@ -1,11 +1,13 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Bg1 from "../../Images/Food-bg-1.jpg";
 import DishesCard from "./DishesCard";
 import { StoreContext } from "../../ContextAPI/StoreContext";
 
 export default function Dashboard() {
   const useStore = useContext(StoreContext)
-  console.log("909oklklklk",useStore)
+  const [category , setCatogery] = useState("")
+  console.log("909oklklklk",useStore ,category)
+
 
 
   return (
@@ -54,13 +56,14 @@ export default function Dashboard() {
 
         <div className="w-full overflow-x-auto ">
           <div className="flex mt-10 flex-nowrap">
-            {[1, 1, 1, 1, 1, 1, 1, 1, 1]?.map((dessert, index) => (
+            {useStore?.food_Categories?.map((val, index) => (
               <>
-                <div>
+                <div  onClick={()=>{setCatogery(val)}}>
                   <div
-                    key={index}
+                 
+                    key={`${index}-${category}`}
                     style={{
-                      border: "3px solid orange",
+                      border: val === category ? "3px solid orange" : "",
                       backgroundImage: `url(${Bg1})`,
                       backgroundSize: "cover",
                       backgroundPosition: "center",
@@ -69,7 +72,7 @@ export default function Dashboard() {
                   >
                   
                   </div>
-                  <h2>Foodes</h2>
+                  <h2>{val}</h2>
                 </div>
               </>
             ))}
@@ -84,9 +87,10 @@ export default function Dashboard() {
 
         <div className="w-full mt-5 p-4">
           <div className="grid grid-cols-4 gap-6">
-            {[1, 1, 1, 1, 1, 1, 1, 1, 1]?.map((dessert, index) => (
+            {useStore?.foodItems?.map((dessert, index) => (
               <>
-               <DishesCard/>
+              { category === dessert?.category &&  <DishesCard dessert={dessert} index={index}/>}
+        
               </>
             ))}
           </div>
