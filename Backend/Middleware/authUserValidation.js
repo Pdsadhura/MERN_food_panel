@@ -1,4 +1,4 @@
-const joi = require("joi");
+import joi from "joi"
 
 const signupValidation = (req, res, next) => {
     console.log("Signup validation middleware triggered.");
@@ -40,4 +40,5 @@ const loginValidation = (req, res, next) => {
     next();
 };
 
-module.exports = { signupValidation, loginValidation };
+export { signupValidation, loginValidation }
+

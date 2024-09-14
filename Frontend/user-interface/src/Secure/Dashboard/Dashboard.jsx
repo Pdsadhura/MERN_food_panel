@@ -5,7 +5,7 @@ import { StoreContext } from "../../ContextAPI/StoreContext";
 
 export default function Dashboard() {
   const useStore = useContext(StoreContext)
-  const [category , setCatogery] = useState("")
+  const [category , setCatogery] = useState(useStore?.food_Categories[0])
   console.log("909oklklklk",useStore ,category)
 
 
@@ -89,7 +89,7 @@ export default function Dashboard() {
           <div className="grid grid-cols-4 gap-6">
             {useStore?.foodItems?.map((dessert, index) => (
               <>
-              { category === dessert?.category &&  <DishesCard dessert={dessert} index={index}/>}
+              {category !== "All" ?   category === dessert?.category  &&  <DishesCard dessert={dessert} index={index}/> :<DishesCard dessert={dessert} index={index}/>}
         
               </>
             ))}

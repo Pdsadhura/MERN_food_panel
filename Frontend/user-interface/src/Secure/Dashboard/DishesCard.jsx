@@ -7,7 +7,7 @@ export default function DishesCard({dessert , index}) {
 
   const StoreValue = useContext(StoreContext)
   console.log("StoreContext",StoreValue)
-  const [itemCounter , setItemCounter] = useState(0)
+
 
   return (
     <>
@@ -21,16 +21,16 @@ export default function DishesCard({dessert , index}) {
           }}
         >
           {" "}
-          <div className={`h-8 ${itemCounter > 0 ? "w-1/4 bg-orange-400" : "w-auto bg-none"}  rounded-3xl absolute bottom-2 shadow-md right-2 flex justify-around `}>
-          {itemCounter > 0 ? <>  <div className="grid place-items-center cursor-pointer font-bold">
-            <button className="bg-white h-6 w-6 rounded-full" onClick={()=>{setItemCounter((prev)=>(prev - 1))}}>-</button>
+          <div className={`h-8 ${StoreValue?.selectedItems[dessert?.id] > 0 ? "w-1/4 bg-orange-400" : "w-auto bg-none"}  rounded-3xl absolute bottom-2 shadow-md right-2 flex justify-around `}>
+          {StoreValue?.selectedItems[dessert?.id] > 0 ? <>  <div className="grid place-items-center cursor-pointer font-bold">
+            <button className="bg-white h-6 w-6 rounded-full" onClick={()=>{StoreValue?.remove_items(dessert?.id)}}>-</button>
             </div>{" "}
             <div className="flex justify-center items-center cursor-pointer text-white text-1xl">
-              {itemCounter}
+              {StoreValue?.selectedItems[dessert?.id]}
             </div>{" "}</>:<></>}
           
             <div className="flex justify-center items-center cursor-pointer ">
-              <button className="bg-white h-6 w-6 rounded-full flex justify-center" onClick={()=>{setItemCounter((prev)=>(prev + 1))}}>+</button>
+              <button className="bg-white h-6 w-6 rounded-full flex justify-center" onClick={()=>{StoreValue?.add_items(dessert?.id)}}>+</button>
               
             </div>
           </div>
