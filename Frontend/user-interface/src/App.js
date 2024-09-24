@@ -11,7 +11,8 @@ function AppContent() {
 
   const ContextValue = useContext(AuthContext);
   console.log("Context Value:", ContextValue);
-  const Routes = ContextValue?.authStates?.isLogin == 0 && !localStorage.getItem("token") ? <Login /> : <Secure />;
+  // const Routes = ContextValue?.authStates?.isLogin == 0 && !localStorage.getItem("token") ? <Login /> : <Secure />;
+  const Routes =  <Secure />;
 
   return (
     <>

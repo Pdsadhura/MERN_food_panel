@@ -7,6 +7,7 @@ import SnackbarWrap from "../Components/SnackbarWrap";
 import swal from "sweetalert";
 import TextField from "@mui/material/TextField";
 
+
 export default function LoginInterFace({ setOpen }) {
   const navigate = useNavigate();
   const ContextValue = useContext(AuthContext);
@@ -61,31 +62,43 @@ export default function LoginInterFace({ setOpen }) {
           </a>
         </div>
         <span>or use your account</span>
-        {/* <input
-            type="text"
-            placeholder="User Name"
-            value={states?.username}
-            onChange={(e) => {
-              setStates((prev) => {
-                return { ...prev, username: e.target.value };
-              });
-            }}
-          /> */}
-        <TextField
-          id="filled-basic"
-          size="small"
-          type="email"
-          placeholder="Email"
-          label="Email"
-          // variant="filled"
-          value={states?.email}
-          onChange={(e) => {
-            setStates((prev) => {
-              return { ...prev, email: e.target.value };
-            });
-          }}
-        />
-        <TextField
+        <div className="">
+              <label className="grid place-content-start text-gray-700 text-sm font-bold my-1" htmlFor="confirmPassword">
+              Email
+              </label>
+              <input
+                className="shadow appearance-none border rounded w-full py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                // id="confirmPassword"
+                type="email"
+                 placeholder="Email"
+                value={states?.email}
+                onChange={(e) => {
+                  setStates((prev) => {
+                    return { ...prev, email: e.target.value };
+                  });
+                }}
+              />
+            </div>
+
+            <div className="">
+              <label className="grid place-content-start text-gray-700 text-sm font-bold my-1" htmlFor="confirmPassword">
+              Password
+              </label>
+              <input
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                // id="confirmPassword"
+                type="password"
+                 placeholder="Password"
+                 value={states?.password}
+                 onChange={(e) => {
+                   setStates((prev) => {
+                     return { ...prev, password: e.target.value };
+                   });
+                 }}
+              />
+            </div>
+
+        {/* <TextField
           id="filled-basic"
            size="small"
           label="Password"
@@ -98,7 +111,7 @@ export default function LoginInterFace({ setOpen }) {
               return { ...prev, password: e.target.value };
             });
           }}
-        />
+        /> */}
 
         <a href="#">Forgot your password?</a>
         <button type="submit">Sign In</button>
