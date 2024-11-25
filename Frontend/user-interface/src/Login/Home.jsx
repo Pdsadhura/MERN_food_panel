@@ -5,16 +5,11 @@ import SignUpModal from "./SignUpModal";
 
 
 
-export default function Home() {
-
-  const [toggler , setToggler] = useState(false)
+export default function Home({toggler,setToggler}) {
 
   return (
     <>
     {toggler ?  <SignUpModal  setToggler={setToggler} toggler={toggler} /> :  <LoginModal setToggler={setToggler} toggler={toggler} />}
-  
-  
-     
     </>
   );
 }

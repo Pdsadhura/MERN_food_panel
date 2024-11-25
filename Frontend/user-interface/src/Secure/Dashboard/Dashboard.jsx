@@ -58,9 +58,8 @@ export default function Dashboard() {
           <div className="flex mt-10 flex-nowrap">
             {useStore?.food_Categories?.map((val, index) => (
               <>
-                <div  onClick={()=>{setCatogery(val)}}>
+                <div   onClick={()=>{setCatogery(val)}}>
                   <div
-                 
                     key={`${index}-${category}`}
                     style={{
                       border: val === category ? "3px solid orange" : "",
@@ -72,7 +71,11 @@ export default function Dashboard() {
                   >
                   
                   </div>
+                  <div className="flex justify-center items-center">
                   <h2>{val}</h2>
+                  </div>
+
+                  
                 </div>
               </>
             ))}
@@ -90,7 +93,6 @@ export default function Dashboard() {
             {useStore?.foodItems?.map((dessert, index) => (
               <>
               {category !== "All" ?   category === dessert?.category  &&  <DishesCard dessert={dessert} index={index}/> :<DishesCard dessert={dessert} index={index}/>}
-        
               </>
             ))}
           </div>

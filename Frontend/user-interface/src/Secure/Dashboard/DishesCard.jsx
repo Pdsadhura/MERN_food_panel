@@ -2,12 +2,14 @@ import React, { useContext, useState } from "react";
 import Rating from "@mui/material/Rating";
 import Bg1 from "../../Images/Food-bg-1.jpg";
 import { StoreContext } from "../../ContextAPI/StoreContext";
+import { IconButton, Tooltip } from "@mui/material";
+import AddIcon from '@mui/icons-material/Add';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 
-export default function DishesCard({dessert , index}) {
-
-  const StoreValue = useContext(StoreContext)
-  console.log("StoreContext",StoreValue)
-
+export default function DishesCard({ dessert, index }) {
+  const StoreValue = useContext(StoreContext);
+  console.log("StoreContext", StoreValue);
 
   return (
     <>
@@ -21,16 +23,42 @@ export default function DishesCard({dessert , index}) {
           }}
         >
           {" "}
-          <div className={`h-8 ${StoreValue?.selectedItems[dessert?.id] > 0 ? "w-1/4 bg-orange-400" : "w-auto bg-none"}  rounded-3xl absolute bottom-2 shadow-md right-2 flex justify-around `}>
-          {StoreValue?.selectedItems[dessert?.id] > 0 ? <>  <div className="grid place-items-center cursor-pointer font-bold">
-            <button className="bg-white h-6 w-6 rounded-full" onClick={()=>{StoreValue?.remove_items(dessert?.id)}}>-</button>
-            </div>{" "}
-            <div className="flex justify-center items-center cursor-pointer text-white text-1xl">
-              {StoreValue?.selectedItems[dessert?.id]}
-            </div>{" "}</>:<></>}
-          
+          <div
+            className={`h-8 ${
+              StoreValue?.selectedItems[dessert?.id] > 0
+                ? "w-1/4 bg-orange-400"
+                : "w-auto bg-none"
+            }  rounded-3xl absolute bottom-2 shadow-md right-2 flex justify-around `}
+          >
+            {StoreValue?.selectedItems[dessert?.id] > 0 ? (
+              <>
+                {" "}
+                <div className="grid place-items-center cursor-pointer font-bold">
+                <RemoveCircleIcon className="text-white "    onClick={() => {
+                      StoreValue?.remove_items(dessert?.id);
+                    }}/>
+              
+                  {/* <button
+                    className="bg-white h-6 w-6 rounded-full"
+                    onClick={() => {
+                      StoreValue?.remove_items(dessert?.id);
+                    }}
+                  >
+                    -
+                  </button> */}
+                </div>{" "}
+                <div className="flex justify-center items-center cursor-pointer text-white text-1xl">
+                  {StoreValue?.selectedItems[dessert?.id]}
+                </div>{" "}
+              </>
+            ) : (
+              <></>
+            )}
+
             <div className="flex justify-center items-center cursor-pointer ">
-              <button className="bg-white h-6 w-6 rounded-full flex justify-center" onClick={()=>{StoreValue?.add_items(dessert?.id)}}>+</button>
+            <AddCircleIcon className="text-white " onClick={() => {
+                  StoreValue?.add_items(dessert?.id);
+                }}/>
               
             </div>
           </div>
@@ -38,15 +66,34 @@ export default function DishesCard({dessert , index}) {
         <div className="">
           <div className="flex justify-between p-4 pt-0 pb-2">
             {" "}
-            <div>{dessert?.name}</div>{" "}
+            <Tooltip title={dessert?.name}>
+              <div>
+                {dessert?.name?.slice(0, 10)}
+                {dessert?.name?.length > 10 ? "..." : null}{" "}
+              </div>{" "}
+            </Tooltip>
             <div className="">
               {" "}
-              <Rating  name="half-rating" readOnly  defaultValue={2.5} precision={0.5} />
+              <Rating
+                name="half-rating"
+                readOnly
+                defaultValue={2.5}
+                precision={0.5}
+              />
             </div>{" "}
           </div>
-          <div> <p className="text-gray-700 text-xs p-4 pt-0 text-wrap">{dessert?.description}</p></div>
+          <div>
+            {" "}
+            <p className="text-gray-700 text-xs p-4 pt-0 text-wrap">
+              {dessert?.description}
+            </p>
+          </div>
 
-          <div><h3 className="text-orange-400 font-bold p-4 pt-0 pb-2">Rs. {dessert?.price}</h3></div>
+          <div>
+            <h3 className="text-orange-400 font-bold p-4 pt-0 pb-2">
+              Rs. {dessert?.price}
+            </h3>
+          </div>
         </div>
       </div>
     </>

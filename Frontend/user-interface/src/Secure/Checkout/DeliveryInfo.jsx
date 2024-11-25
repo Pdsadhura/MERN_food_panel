@@ -59,35 +59,35 @@ export default function DeliveryInfo() {
           <div className="h-auto border w-8/12 p-10">
             <h1 className="font-bold text-black text-3xl">Cart Totals</h1>
             <div className="flex gap-4 ">
-              <p className="h-auto text-4xl text-gray-500 font-bold w-full flex justify-start">
+              <p className="h-auto text-1xl text-gray-500 font-bold w-full flex justify-start">
                 <span>Sub Total :</span>
               </p>
-              <p className="text-4xl text-gray-500 font-bold w-full flex justify-end">
+              <p className="text-1xl text-gray-500 font-bold w-full flex justify-end">
                 {" "}
                 <span>Rs. 3000</span>
               </p>
             </div>
             <hr className="divide-y divide-slate-200"></hr>
             <div className="h-auto flex gap-4 ">
-              <p className="text-4xl text-gray-500 font-bold w-full flex justify-start">
+              <p className="text-1xl text-gray-500 font-bold w-full flex justify-start">
                 <span>Delivery Fee :</span>
               </p>
-              <p className="text-4xl text-gray-500 font-bold w-full flex justify-end">
+              <p className="text-1xl text-gray-500 font-bold w-full flex justify-end">
                 {" "}
                 <span>Rs. 20</span>
               </p>
             </div>
             <hr className="divide-y divide-slate-200"></hr>
             <div className="h-auto flex gap-4 ">
-              <p className="text-4xl text-black font-bold w-full flex justify-start">
+              <p className="text-1xl text-black font-bold w-full flex justify-start">
                 <span>Total :</span>
               </p>
-              <p className="text-4xl text-black font-bold w-full flex justify-end">
+              <p className="text-1xl text-black font-bold w-full flex justify-end">
                 {" "}
                 <span>Rs. 20</span>
               </p>
             </div>
-            <button className="rounded-full shadow-md bg-orange-400 text-white mt-1 w-72 p-3 hover:bg-orange-600" >
+            <button className=" mt-3 rounded-full shadow-md bg-orange-400 text-white mt-1 w-72 p-3 hover:bg-orange-600" >
                 Proceed to Checkout
               </button>
 

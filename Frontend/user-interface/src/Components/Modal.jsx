@@ -12,7 +12,9 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
   });
 
-export default function Modal({open , setOpen , children}) {
+export default function Modal({open , setOpen , toggler ,  children}) {
+
+  console.log("toggler",toggler)
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -32,7 +34,7 @@ export default function Modal({open , setOpen , children}) {
         onClose={handleClose}
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogTitle>{"Use Google's location service?"}</DialogTitle>
+        <DialogTitle className='flex justify-center items-center' >{toggler ? "Signup" : "Please Login"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
      {children}

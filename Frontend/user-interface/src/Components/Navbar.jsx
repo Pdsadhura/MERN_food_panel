@@ -10,14 +10,18 @@ import Badge from "@mui/material/Badge";
 import Modal from "./Modal";
 import LoginModal from "../Login/LoginModal";
 import Home from "../Login/Home";
+import { useState } from "react";
+import { StoreContext } from "../ContextAPI/StoreContext";
 
 export default function Navbar() {
   const ContextValue = useContext(AuthContext);
+  const ContextValue_food = useContext(StoreContext);
   const navigate = useNavigate();
   const location = useLocation();
   const activePath = location?.pathname;
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [openModal, setOpenModal] = React.useState(false);
+  const [toggler , setToggler] = useState(false)
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -36,6 +40,8 @@ export default function Navbar() {
     });
     navigate("/");
   };
+
+  console.log("sfslflslsfsf",ContextValue_food , ContextValue)
 
   const buttonToggler = () => {
     if (localStorage.getItem("token")) {
@@ -82,8 +88,8 @@ export default function Navbar() {
 
   return (
     <>
-    <Modal  open={openModal} setOpen={setOpenModal} >
-      <Home/>
+    <Modal  open={openModal} setOpen={setOpenModal}  toggler={toggler}  >
+      <Home toggler={toggler}  setToggler={setToggler} />
     </Modal>
       <div className=" h-20 w-full flex justify-between p-4">
         <div
@@ -92,7 +98,7 @@ export default function Navbar() {
           }}
           className="flex cursor-pointer justify-center items-center text-orange-500 text-4xl font-bold"
         >
-          Foods
+          Food First
         </div>
         <div className="flex justify-center items-center">
           <ul className="flex gap-4 ">
@@ -132,7 +138,13 @@ export default function Navbar() {
               navigate("/cart");
             }}
           >
-            <Badge badgeContent={4} color="success">
+            <Badge badgeContent={(function(){
+              let value = Object?.values(ContextValue_food?.selectedItems)
+              // console.log("valuevalue",value?.reduce((pre , curr)=> pre + curr , 0))
+              return value?.reduce((pre , curr)=> pre + curr , 0)
+              
+              
+            })()} color="success">
               <LocalMallIcon />
             </Badge>
           </div>

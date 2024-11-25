@@ -16,8 +16,9 @@ export default function Secure() {
   return (
     <>
       {/* <Sidebar> */}  
-      <Navbar/>
+      
       <StoreContextProvider>
+      <Navbar/>
       <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/Cart" element={<CartDetails />} />
