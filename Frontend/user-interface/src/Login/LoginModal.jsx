@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../ContextAPI/AuthContext";
 import axios from "axios";
 
-export default function LoginModal({setToggler,toggler}) {
+export default function LoginModal({ setToggler, setErrorState, setOpen, setOpenSnack, setOpenModal, handleClose }) {
   const navigate = useNavigate();
 
   const [states, setStates] = useState({
@@ -13,29 +13,32 @@ export default function LoginModal({setToggler,toggler}) {
     password: "",
   });
 
-  const [errorState, setErrorState] = useState("");
-
   const handleLogin = async (e) => {
     e.preventDefault();
-
+    setOpen(true);
     try {
       const result = await axios.post("http://localhost:8000/Auth/login", {
         password: states?.password,
         email: states?.email,
       });
       if (result.data.status === 200) {
-
         localStorage.setItem("token", result.data.token);
-
         navigate("/");
+        handleClose();
+        setOpenSnack(true);
+        setErrorState(result.data.message);
       } else {
-
       }
     } catch (error) {
+      setOpenSnack(true);
+      setErrorState("something wents wrong!!");
 
-      setErrorState(error?.response?.data?.message);
       console.log("error", error?.response?.data?.message);
     } finally {
+      setOpen(false);
+      setToggler(false);
+      setOpenModal(false);
+      handleClose();
     }
   };
   return (
@@ -69,19 +72,18 @@ export default function LoginModal({setToggler,toggler}) {
           }}
         />
 
-      
-        <button
-          type="submit"
-          className="rounded-full shadow-md bg-orange-400 text-white mt-10 w-full p-3 hover:bg-orange-600"
-        >
+        <button type="submit" className="rounded-full shadow-md bg-orange-400 text-white mt-10 w-full p-3 hover:bg-orange-600">
           Login
         </button>
-        
       </form>
-      <div className="text-orange-400  cursor-pointer hover:underline hover:text-blue-600 mt-5 text-sml" onClick={()=>{
-          setToggler(true)
-        }}> You don't have any account ? Please signup </div>
-
+      <div
+        className="text-orange-400  cursor-pointer hover:underline hover:text-blue-600 mt-5 text-sml"
+        onClick={() => {
+          setToggler(true);
+        }}>
+        {" "}
+        You don't have any account ? Please signup{" "}
+      </div>
     </>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
@@ -12,6 +12,9 @@ import LoginModal from "../Login/LoginModal";
 import Home from "../Login/Home";
 import { useState } from "react";
 import { StoreContext } from "../ContextAPI/StoreContext";
+import { Backdrop } from "@mui/material";
+import CircularProgress from "@mui/material/CircularProgress";
+import SnackbarWrap from "./SnackbarWrap";
 
 export default function Navbar() {
   const ContextValue = useContext(AuthContext);
@@ -21,7 +24,10 @@ export default function Navbar() {
   const activePath = location?.pathname;
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [openModal, setOpenModal] = React.useState(false);
-  const [toggler , setToggler] = useState(false)
+  const [openSnack, setOpenSnack] = React.useState(false);
+  const [errorState, setErrorState] = useState("");
+  const [toggler, setToggler] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -39,22 +45,17 @@ export default function Navbar() {
       };
     });
     navigate("/");
+    setOpenSnack(true);
+    setErrorState("Logout Successfully !!");
   };
 
-  console.log("sfslflslsfsf",ContextValue_food , ContextValue)
+  console.log("sfslflslsfsf", ContextValue_food, ContextValue);
 
   const buttonToggler = () => {
     if (localStorage.getItem("token")) {
       return (
         <>
-          <IconButton
-            size="large"
-            aria-label="account of current user"
-            aria-controls="menu-appbar"
-            aria-haspopup="true"
-            onClick={handleMenu}
-            color="inherit"
-          >
+          <IconButton size="large" aria-label="account of current user" aria-controls="menu-appbar" aria-haspopup="true" onClick={handleMenu} color="inherit">
             <AccountCircle />
           </IconButton>
           <Menu
@@ -70,34 +71,56 @@ export default function Navbar() {
               horizontal: "right",
             }}
             open={Boolean(anchorEl)}
-            onClose={handleClose}
-          >
+            onClose={handleClose}>
             <MenuItem onClick={handleClose}>Profile</MenuItem>
             <MenuItem onClick={handleLogout}>Logout</MenuItem>
           </Menu>
         </>
       );
     } else {
-      return <>
-      <button className="rounded-full shadow-md bg-orange-400 text-white ml-6 w-32  p-2 hover:bg-orange-600" onClick={()=>{setOpenModal(true)}}>
-                Login
-              </button>
-      </>;
+      return (
+        <>
+          <button
+            className="rounded-full shadow-md bg-orange-400 text-white ml-6 w-32  p-2 hover:bg-orange-600"
+            onClick={() => {
+              setOpenModal(true);
+            }}>
+            Login
+          </button>
+        </>
+      );
     }
   };
 
+  const handleCloseSnack = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpenSnack(false);
+  };
+
+  useEffect(() => {
+    setTimeout(() => {
+      setOpen(false);
+    }, 3000);
+  }, [open]);
+
   return (
     <>
-    <Modal  open={openModal} setOpen={setOpenModal}  toggler={toggler}  >
-      <Home toggler={toggler}  setToggler={setToggler} />
-    </Modal>
+      <SnackbarWrap open={openSnack} isAction={false} severity="error" message={errorState} handleClose={handleCloseSnack} />
+      <Backdrop sx={(theme) => ({ color: "#fff", zIndex: theme.zIndex.drawer + 1 })} open={open} onClick={handleClose}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
+      <Modal open={openModal} setOpen={setOpenModal} toggler={toggler}>
+        <Home setErrorState={setErrorState} setOpenSnack={setOpenSnack} toggler={toggler} setToggler={setToggler} setOpenModal={setOpenModal} openModal={openModal} handleClose={handleClose} />
+      </Modal>
       <div className=" h-20 w-full flex justify-between p-4">
         <div
           onClick={() => {
             navigate("/");
           }}
-          className="flex cursor-pointer justify-center items-center text-orange-500 text-4xl font-bold"
-        >
+          className="flex cursor-pointer justify-center items-center text-orange-500 text-2xl sm:text-3xl md:text-3xl font-bold ">
           Food First
         </div>
         <div className="flex justify-center items-center">
@@ -121,8 +144,7 @@ export default function Navbar() {
                           return "hover:text-orange-600 hover:underline hover:cursor-pointer font-sans ";
                         }
                       }
-                    })()}
-                  >
+                    })()}>
                     {items}
                   </Link>
                 </>
@@ -136,21 +158,18 @@ export default function Navbar() {
             className="grid place-items-center text-gray-600"
             onClick={() => {
               navigate("/cart");
-            }}
-          >
-            <Badge badgeContent={(function(){
-              let value = Object?.values(ContextValue_food?.selectedItems)
-              // console.log("valuevalue",value?.reduce((pre , curr)=> pre + curr , 0))
-              return value?.reduce((pre , curr)=> pre + curr , 0)
-              
-              
-            })()} color="success">
+            }}>
+            <Badge
+              badgeContent={(function () {
+                let value = Object?.values(ContextValue_food?.selectedItems);
+                // console.log("valuevalue",value?.reduce((pre , curr)=> pre + curr , 0))
+                return value?.reduce((pre, curr) => pre + curr, 0);
+              })()}
+              color="success">
               <LocalMallIcon />
             </Badge>
           </div>
-          <div className="text-gray-600">
-            {buttonToggler()}
-          </div>
+          <div className="text-gray-600">{buttonToggler()}</div>
         </div>
       </div>
     </>

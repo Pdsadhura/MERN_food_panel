@@ -7,7 +7,7 @@ import AddIcon from '@mui/icons-material/Add';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 
-export default function DishesCard({ dessert, index }) {
+export default function DishesCard({ dessert, index , setOpen }) {
   const StoreValue = useContext(StoreContext);
   console.log("StoreContext", StoreValue);
 
@@ -36,6 +36,7 @@ export default function DishesCard({ dessert, index }) {
                 <div className="grid place-items-center cursor-pointer font-bold">
                 <RemoveCircleIcon className="text-white "    onClick={() => {
                       StoreValue?.remove_items(dessert?.id);
+                      setOpen(true)
                     }}/>
               
                   {/* <button
@@ -58,6 +59,7 @@ export default function DishesCard({ dessert, index }) {
             <div className="flex justify-center items-center cursor-pointer ">
             <AddCircleIcon className="text-white " onClick={() => {
                   StoreValue?.add_items(dessert?.id);
+                  setOpen(true)
                 }}/>
               
             </div>
