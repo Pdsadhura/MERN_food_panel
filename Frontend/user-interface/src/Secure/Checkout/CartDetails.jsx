@@ -22,25 +22,28 @@ export default function CartDetails() {
       <div className="h-72 overflow-auto">
         {storeItems?.foodItems?.map((val) => {
           return (
-            <>{
-              storeItems?.selectedItems[val?.id] ? <>
-               <div className="border  w-full grid grid-cols-6 items-center p-4  ">
-                <div className=" h-12">
-                  <img src={Bg1} className="h-12 w-20" />
-                </div>
-                <div className="h-12 flex items-center ">{val?.name}</div>
-                <div className="h-12 flex items-center">Rs. {val?.price}</div>
-                <div className="h-12 flex items-center">{storeItems?.selectedItems[val?.id]}</div>
-                <div className="h-12 flex items-center">{storeItems?.selectedItems[val?.id] * val?.price}</div>
-                <div className="h-12 flex items-center mx-6">
-                  <button onClick={()=>{storeItems?.remove_items(val?.id)}}>
-                    <DeleteOutlineIcon />
-                  </button>
-                </div>
-              </div>
-              </> : null
-            }
-             
+            <>
+              {storeItems?.selectedItems[val?._id] ? (
+                <>
+                  <div className="border  w-full grid grid-cols-6 items-center p-4  ">
+                    <div className=" h-12">
+                      <img src={`${storeItems?.URL}/Images/${val?.image}`} className="h-12 w-20" />
+                    </div>
+                    <div className="h-12 flex items-center ">{val?.name}</div>
+                    <div className="h-12 flex items-center">Rs. {val?.price}</div>
+                    <div className="h-12 flex items-center">{storeItems?.selectedItems[val?._id]}</div>
+                    <div className="h-12 flex items-center">{storeItems?.selectedItems[val?._id] * val?.price}</div>
+                    <div className="h-12 flex items-center mx-6">
+                      <button
+                        onClick={() => {
+                          storeItems?.remove_items(val?._id);
+                        }}>
+                        <DeleteOutlineIcon />
+                      </button>
+                    </div>
+                  </div>
+                </>
+              ) : null}
             </>
           );
         })}
@@ -83,8 +86,7 @@ export default function CartDetails() {
               className=" mt-3 rounded-full shadow-md bg-orange-400 text-white mt-1 w-72 p-3 hover:bg-orange-600"
               onClick={() => {
                 navigate("/Delivery");
-              }}
-            >
+              }}>
               Proceed to Checkout
             </button>
           </div>
@@ -95,16 +97,8 @@ export default function CartDetails() {
               </p>
 
               <div className="h-9 mt-3">
-                <input
-                  className="bg-slate-200 h-full pl-2"
-                  style={{ border: "1px solid gray" }}
-                  placeholder="Enter Here"
-                  type="text"
-                />
-                <button
-                  className="bg-black text-white w-auto px-4 h-full"
-                  style={{ border: "1px solid black" }}
-                >
+                <input className="bg-slate-200 h-full pl-2" style={{ border: "1px solid gray" }} placeholder="Enter Here" type="text" />
+                <button className="bg-black text-white w-auto px-4 h-full" style={{ border: "1px solid black" }}>
                   Submit
                 </button>
               </div>

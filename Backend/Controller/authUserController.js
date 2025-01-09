@@ -28,7 +28,7 @@ const login = async (req, res) => {
             return res.status(500).json({ message: "Internal server error: SECRET is not defined", status: 500 });
         }
 
-        const jwtToken = jwt.sign({ email: user.email, _id: user._id }, process.env.SECRET, { expiresIn: "24h" });
+        const jwtToken = jwt.sign({ email: user.email, _id: user._id }, process.env.SECRET, { expiresIn: "2h" });
 
         res.status(200).json({
             message: "Login Successfully", token: jwtToken, email: user.email, status: 200

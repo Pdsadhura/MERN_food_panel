@@ -4,6 +4,8 @@ import cors from "cors";
 import authUserRouters from "./Routes/authUserRouter.js";
 import foodItemsRouter from "./Routes/foodItemsRouter.js";
 import productRouters from "./Routes/productRouters.js";
+import cartRouter from "./Routes/cartRouter.js";
+import orderRouter from "./Routes/orderRouter.js";
 import dotenv from "dotenv";
 import './config.js';  // Ensure your config file path is correct
 
@@ -20,7 +22,9 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.use("/Auth", authUserRouters);
-app.use("/api/Foods", foodItemsRouter );
+app.use("/api/Foods", foodItemsRouter);
+app.use("/api/cart", cartRouter);
+app.use("/api/orders", orderRouter);
 app.use("/Images", express.static("Uploads"));
 app.use("/Products", productRouters);
 
